@@ -11,6 +11,9 @@ public class LevelChoiceUI : MonoBehaviour
     private Weapon weaponData;
     private WeaponManager weaponManager;
 
+    [Header("Other References")]
+    [SerializeField] private GameObject gameManager;
+
     public void Initialize(Weapon weapon, WeaponManager manager)
     {
         weaponData = weapon;
@@ -23,6 +26,7 @@ public class LevelChoiceUI : MonoBehaviour
     public void OnSelect()
     {
         Time.timeScale = 1f;
+        gameManager.GetComponent<GameManager>().canPauseGame = true;
 
         if (weaponData.isWeapon)
         {

@@ -25,6 +25,9 @@ public class LevelingManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip levelUpSFX;
 
+    [Header("Other References")]
+    [SerializeField] private GameObject gameManager;
+
     private void Start()
     {
         onlyWeapons = true;
@@ -37,6 +40,7 @@ public class LevelingManager : MonoBehaviour
 
     private void LevelUp()
     {
+        gameManager.GetComponent<GameManager>().canPauseGame = false;
         audioSource.PlayOneShot(levelUpSFX);
         totalXP -= xpRequirement; // Removes the XP it costed to level up (to "reset" the XP)
         xpRequirement *= 1.5f; // Increase xpRequirement by 50%
