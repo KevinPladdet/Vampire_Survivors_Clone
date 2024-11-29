@@ -26,7 +26,7 @@ public class LevelChoiceUI : MonoBehaviour
     public void OnSelect()
     {
         Time.timeScale = 1f;
-        gameManager.GetComponent<GameManager>().canPauseGame = true;
+        GameManager.instance.canPauseGame = true;
 
         if (weaponData.isWeapon)
         {
