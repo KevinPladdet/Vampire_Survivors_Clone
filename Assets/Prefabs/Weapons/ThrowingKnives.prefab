@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knifePrefab: {fileID: 1117893628589550267, guid: f97ea8c226268d1489d65b2600469f76, type: 3}
   spawnInterval: 1
+  knifeSFX: {fileID: 8300000, guid: 3e55578d714106940bedd9082d12d0cc, type: 3}

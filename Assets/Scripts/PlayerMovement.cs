@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip playerHitSFX;
     [SerializeField] private AudioClip collectSFX;
     [SerializeField] private AudioClip coinCollectSFX;
+    [SerializeField] private AudioClip turkeySFX;
     private bool sfxCooldownBool = true;
 
     private Vector2 movementInput;
@@ -139,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Turkey"))
         {
-            audioSource.PlayOneShot(collectSFX);
+            audioSource.PlayOneShot(turkeySFX);
             Destroy(other.gameObject);
             HealPlayer(30);
         }
@@ -195,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
         {
             sfxCooldownBool = false;
             audioSource.PlayOneShot(playerHitSFX);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
             sfxCooldownBool = true;
         }
     }

@@ -7,10 +7,15 @@ public class KnivesSpawner : MonoBehaviour
     [SerializeField] private GameObject knifePrefab;
     [SerializeField] private float spawnInterval;
 
+    [Header("Sound Effects")]
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip knifeSFX;
+
     private Vector2 lastMoveDirection; // Tracks the last movement direction
 
     private void Start()
     {
+        audioSource = GameObject.FindGameObjectWithTag("AudioSourceSFX").GetComponent<AudioSource>();
         StartCoroutine(SpawnKnives());
     }
 
@@ -34,6 +39,7 @@ public class KnivesSpawner : MonoBehaviour
             // Spawn knife in the last moving direction
             if (lastMoveDirection != Vector2.zero)
             {
+                audioSource.PlayOneShot(knifeSFX);
                 GameObject knife = Instantiate(knifePrefab, transform.position, Quaternion.identity);
                 knife.GetComponent<KnivesWeapon>().SetDirection(lastMoveDirection); // Set the direction
             }
