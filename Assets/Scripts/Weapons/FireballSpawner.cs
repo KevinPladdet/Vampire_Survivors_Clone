@@ -8,11 +8,16 @@ public class FireballSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval;
     [SerializeField] float searchRadius;
 
+    [Header("Sound Effects")]
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip firewandSFX;
+
     private Transform player;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        audioSource = GameObject.FindGameObjectWithTag("AudioSourceSFX").GetComponent<AudioSource>();
         StartCoroutine(SpawnFireballs());
     }
 
@@ -27,6 +32,7 @@ public class FireballSpawner : MonoBehaviour
 
             if (closestEnemy != null)
             {
+                audioSource.PlayOneShot(firewandSFX);
                 GameObject fireball = Instantiate(fireballPrefab, player.position, Quaternion.identity);
 
                 // Sets the closestEnemy.transform as the targetEnemy of the fireball

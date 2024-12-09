@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sound Effects")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip deathSFX;
+    [SerializeField] private AudioClip playerHitSFX;
+    [SerializeField] private AudioClip collectSFX;
+    [SerializeField] private AudioClip coinCollectSFX;
+    private bool sfxCooldownBool = true;
 
     private Vector2 movementInput;
     private Rigidbody2D rb;
@@ -89,6 +93,8 @@ public class PlayerMovement : MonoBehaviour
     // Healthbar methods
     public void TakeDamage(float damage)
     {
+        StartCoroutine(sfxCooldown());
+
         currentHealth -= damage * weaponHolder.GetComponent<WeaponManager>().armorMultiplier;
         healthbar.SetHealth(currentHealth);
         if (currentHealth <= 0)
@@ -133,17 +139,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Turkey"))
         {
+            audioSource.PlayOneShot(collectSFX);
             Destroy(other.gameObject);
             HealPlayer(30);
         }
         else if (other.CompareTag("GoldBag"))
         {
+            audioSource.PlayOneShot(coinCollectSFX);
             Destroy(other.gameObject);
             goldAmount += 10;
             goldAmountText.text = "" + goldAmount;
         }
         else if (other.CompareTag("BlueGem"))
         {
+            audioSource.PlayOneShot(collectSFX);
             Destroy(other.gameObject);
             levelingManager.totalXP += weaponHolder.GetComponent<WeaponManager>().xpMultiplier * 10;
             levelingManager.UpdateXP();
@@ -151,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.CompareTag("GreenGem"))
         {
+            audioSource.PlayOneShot(collectSFX);
             Destroy(other.gameObject);
             levelingManager.totalXP += weaponHolder.GetComponent<WeaponManager>().xpMultiplier * 50;
             levelingManager.UpdateXP();
@@ -158,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (other.CompareTag("RedGem"))
         {
+            audioSource.PlayOneShot(collectSFX);
             Destroy(other.gameObject);
             levelingManager.totalXP += weaponHolder.GetComponent<WeaponManager>().xpMultiplier * 100;
             levelingManager.UpdateXP();
@@ -176,5 +187,16 @@ public class PlayerMovement : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthbar.SetMaxHealth(maxHealth);
+    }
+
+    public IEnumerator sfxCooldown()
+    {
+        if(sfxCooldownBool)
+        {
+            sfxCooldownBool = false;
+            audioSource.PlayOneShot(playerHitSFX);
+            yield return new WaitForSeconds(0.1f);
+            sfxCooldownBool = true;
+        }
     }
 }

@@ -110,6 +110,8 @@ MonoBehaviour:
   blueGemPrefab: {fileID: 2717542264399296109, guid: 5ca1af89dcc0bfd47bffa1e335073db4, type: 3}
   greenGemPrefab: {fileID: 9167776316547730407, guid: 2e2994b8940343047b140d0014f0ce25, type: 3}
   redGemPrefab: {fileID: 1042526972515780145, guid: f7e082b2ef4187d4b82009d581d47531, type: 3}
+  audioSource: {fileID: 0}
+  enemyHitSFX: {fileID: 8300000, guid: 0673c0c08ec41ef47bc753141379354b, type: 3}
   timerObject: {fileID: 0}
   enemyHolder: {fileID: 0}
 --- !u!50 &3641345081931880682

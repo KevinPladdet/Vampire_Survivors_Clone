@@ -34,6 +34,11 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private GameObject greenGemPrefab;
     [SerializeField] private GameObject redGemPrefab;
 
+    [Header("Sound Effects")]
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip enemyHitSFX;
+    private bool sfxCooldownBool = true;
+
     [Header("Other References")]
     [SerializeField] private GameObject timerObject;
     [SerializeField] private GameObject enemyHolder;
@@ -50,6 +55,7 @@ public class EnemyScript : MonoBehaviour
         pickupHolder = GameObject.Find("PickupHolder");
         timerObject = GameObject.Find("Timer");
         enemyHolder = GameObject.Find("EnemyHolder");
+        audioSource = GameObject.FindGameObjectWithTag("AudioSourceSFX").GetComponent<AudioSource>();
 
         enemyHolder.GetComponent<EnemySpawner>().aliveEnemies += 1;
 
@@ -103,6 +109,7 @@ public class EnemyScript : MonoBehaviour
     // Is called to deal damage to the enemy
     public void TakeDamage(float damage)
     {
+        StartCoroutine(sfxCooldown()); // enemyHitSFX
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
@@ -170,5 +177,16 @@ public class EnemyScript : MonoBehaviour
 
         enemyHolder.GetComponent<EnemySpawner>().aliveEnemies -= 1;
         Destroy(gameObject);
+    }
+
+    public IEnumerator sfxCooldown()
+    {
+        if (sfxCooldownBool)
+        {
+            sfxCooldownBool = false;
+            audioSource.PlayOneShot(enemyHitSFX);
+            yield return new WaitForSeconds(0.1f);
+            sfxCooldownBool = true;
+        }
     }
 }

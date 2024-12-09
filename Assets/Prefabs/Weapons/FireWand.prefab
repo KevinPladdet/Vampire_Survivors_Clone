@@ -47,3 +47,4 @@ MonoBehaviour:
   fireballPrefab: {fileID: 66717497384329405, guid: 7d9347e73b0867f41a626adc91e616b8, type: 3}
   spawnInterval: 2
   searchRadius: 9
+  firewandSFX: {fileID: 8300000, guid: 457ffbafba3e3f349a791a0484a71715, type: 3}
