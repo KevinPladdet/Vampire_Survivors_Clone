@@ -77,7 +77,7 @@ public class EnemyScript : MonoBehaviour
     {
         MoveTowardsPlayer();
 
-        if (isAttackingPlayer)
+        if (isAttackingPlayer && player.GetComponent<PlayerMovement>().canTakeDamage)
         {
             player.GetComponent<PlayerMovement>().TakeDamage(enemyDamage);
         }

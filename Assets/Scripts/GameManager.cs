@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         gameIsPaused = true;
+        player.GetComponent<PlayerMovement>().canTakeDamage = false;
 
         canvas.SetActive(false);
         //player.SetActive(false);
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameIsPaused = false;
+        player.GetComponent<PlayerMovement>().canTakeDamage = true;
         menuCanvas.SetActive(false);
         canvas.SetActive(true);
     }
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         gameIsPaused = false;
+        player.GetComponent<PlayerMovement>().canTakeDamage = true;
         hasStartedGame = true;
 
         menuCanvas.SetActive(false);

@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float currentHealth;
     [SerializeField] private bool playerIsAlive;
     [SerializeField] public HealthbarScript healthbar;
+    public bool canTakeDamage;
 
     [Header("References")]
     [SerializeField] private BoxCollider2D playerHitbox;
